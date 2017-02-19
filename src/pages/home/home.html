@@ -1,0 +1,43 @@
+<ion-header primary>
+  <ion-navbar>
+    <ion-title>
+      Run Metric
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab top right edge>
+    <button ion-fab mini (click)="startRun()" *ngIf="!start"><ion-icon name="play"></ion-icon></button>
+    <button ion-fab mini (click)="stopRun()" *ngIf="start"><ion-icon name="pause"></ion-icon></button>
+  </ion-fab>
+    
+  <ion-item padding>
+    <ion-label>Velocidade (Km/h)</ion-label>
+    <ion-input type="number" [(ngModel)]="velocity"></ion-input>
+  </ion-item>
+
+  <ion-item padding>
+    <ion-label>Seu peso (Kg)</ion-label>
+    <ion-input type="number" [(ngModel)]="weight"></ion-input>
+  </ion-item>
+
+  <hr>
+  
+  <ion-card *ngFor="let metric of metrics">
+    <ion-card-header>
+      {{ metric.name }}
+    </ion-card-header>
+
+    <ion-card-content *ngIf="metric.id == 'time'">
+      <span *ngIf="metric.value.h < 10">0</span>{{ metric.value.h }}:<span *ngIf="metric.value.m < 10">0</span>{{ metric.value.m }}:<span *ngIf="metric.value.s < 10">0</span>{{ metric.value.s }}
+    </ion-card-content>
+
+    <ion-card-content *ngIf="metric.id != 'time'">
+      {{ metric.value }} <span *ngIf="metric.id == 'distance'"> Km</span><span *ngIf="metric.id == 'calories'"> Calorias</span><span *ngIf="metric.id == 'weight'"> Kg</span>
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>
